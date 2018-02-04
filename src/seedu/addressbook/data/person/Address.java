@@ -8,11 +8,20 @@ import seedu.addressbook.data.exception.IllegalValueException;
  */
 public class Address {
 
-    public static final String EXAMPLE = "123, some street";
-    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Person addresses can be in any format";
-    public static final String ADDRESS_VALIDATION_REGEX = ".+";
+    public static final String EXAMPLE = "123, some street, #11-246, 730224";
+    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Person addresses format should be of BLOCK, STREET, UNIT, POSTAL_CODE";
+    public static final String ADDRESS_VALIDATION_REGEX = ".+,.+,.+,.+";
+    public static final String COMMA = ", ";
 
-    public final String value;
+    private final int BLOCK = 0;
+    private final int STREET = 1;
+    private final int UNIT = 2;
+    private final int POSTALCODE = 3;
+
+    private Block block;
+    private Street street;
+    private Unit unit;
+    private PostalCode postalCode;
     private boolean isPrivate;
 
     /**
@@ -26,7 +35,18 @@ public class Address {
         if (!isValidAddress(trimmedAddress)) {
             throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
         }
-        this.value = trimmedAddress;
+        processAddress(trimmedAddress);
+    }
+
+    /**
+     * process Address string and initialize block, street, unit, postalCode
+     */
+    private void processAddress(String trimmedAddress) {
+        String[] result = trimmedAddress.split(",");
+        block = new Block(result[BLOCK].trim());
+        street = new Street(result[STREET].trim());
+        unit = new Unit(result[UNIT].trim());
+        postalCode = new PostalCode(result[POSTALCODE].trim());
     }
 
     /**
@@ -36,21 +56,29 @@ public class Address {
         return test.matches(ADDRESS_VALIDATION_REGEX);
     }
 
+    /**
+     *
+     * @return Address in the form of BLOCK, STREET, UNIT, POSTALCODE
+     */
+    private String getAddressString() {
+        return block + COMMA + street + COMMA + unit + COMMA + postalCode;
+    }
+
     @Override
     public String toString() {
-        return value;
+        return getAddressString();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Address // instanceof handles nulls
-                && this.value.equals(((Address) other).value)); // state check
+                && getAddressString().equals(((Address) other).getAddressString())); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return getAddressString().hashCode();
     }
 
     public boolean isPrivate() {
