@@ -3,6 +3,7 @@ package seedu.addressbook.storage;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.storage.jaxb.AdaptedAddressBook;
+import seedu.addressbook.ui.TextUi;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -28,6 +29,7 @@ public class StorageFile {
 
     /** Default file path used if the user doesn't provide the file name. */
     public static final String DEFAULT_STORAGE_FILEPATH = "addressbook.xml";
+    private TextUi ui;
 
     /* Note: Note the use of nested classes below.
      * More info https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html
@@ -72,7 +74,7 @@ public class StorageFile {
         } catch (JAXBException jaxbe) {
             throw new RuntimeException("jaxb initialisation error");
         }
-
+        this.ui = new TextUi();
         path = Paths.get(filePath);
         if (!isValidPath(path)) {
             throw new InvalidStorageFilePathException("Storage file should end with '.xml'");
@@ -106,10 +108,19 @@ public class StorageFile {
             marshaller.marshal(toSave, fileWriter);
 
         } catch (IOException ioe) {
-            throw new StorageOperationException("Error writing to file: " + path);
+            printErrorMessageForFailToSave();
+            //throw new StorageOperationException("Error writing to file: " + path);
         } catch (JAXBException jaxbe) {
             throw new StorageOperationException("Error converting address book into storage format");
         }
+    }
+
+    /**
+     * print error message to ask user to change the file setting
+     */
+    private void printErrorMessageForFailToSave() {
+        ui.showToUser("!!!!! Error writing to save file: " + path + ", Maybe caused by read only. " +
+                "PLEASE uncheck READ-ONLY under properties of the file  by right clicking it !!!!");
     }
 
     /**
