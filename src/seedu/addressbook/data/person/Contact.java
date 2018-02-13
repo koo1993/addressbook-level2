@@ -1,5 +1,6 @@
 package seedu.addressbook.data.person;
 
+
 /**
  * Represents a type of contact in a person
  */
@@ -9,7 +10,9 @@ public class Contact {
     protected boolean isPrivate;
 
 
-    public Contact() {
+    public Contact(String value, boolean isPrivate) {
+        this.value = value;
+        this.isPrivate = isPrivate;
     }
 
 

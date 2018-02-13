@@ -18,12 +18,10 @@ public class Address extends Contact {
      * @throws IllegalValueException if given address string is invalid.
      */
     public Address(String address, boolean isPrivate) throws IllegalValueException {
-        String trimmedAddress = address.trim();
-        if (!isValidAddress(trimmedAddress)) {
+        super(address.trim(), isPrivate);
+        if (!isValidAddress(this.value)) {
             throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
         }
-        this.isPrivate = isPrivate;
-        this.value = trimmedAddress;
     }
 
     /**
@@ -45,12 +43,5 @@ public class Address extends Contact {
                 && this.value.equals(((Address) other).value)); // state check
     }
 
-    @Override
-    public int hashCode() {
-        return value.hashCode();
-    }
 
-    public boolean isPrivate() {
-        return isPrivate;
-    }
 }
