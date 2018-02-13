@@ -43,13 +43,33 @@ public class TypicalPersons {
         }
     }
 
+    private void loadAddressBookWithUnsortedSampleData(AddressBook ab) {
+        try {
+            for (Person p : this.getTypicalUnSortedPersons()) {
+                ab.addPerson(new Person(p));
+            }
+        } catch (IllegalValueException e) {
+            assert false : "not possible";
+        }
+    }
+
     public Person[] getTypicalPersons() {
         return new Person[]{amy, bill, candy, dan};
+    }
+
+    public Person[] getTypicalUnSortedPersons() {
+        return new Person[]{candy, bill, dan, amy};
     }
 
     public AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
         loadAddressBookWithSampleData(ab);
+        return ab;
+    }
+
+    public AddressBook getTypicalUnsortedAddressBook() {
+        AddressBook ab = new AddressBook();
+        loadAddressBookWithUnsortedSampleData(ab);
         return ab;
     }
 
