@@ -20,8 +20,8 @@ public class SortCommandTest {
     }
 
     /**
-     * Execute sort command using in the unsortedAddressbook
-     * to compare with the original sortedaddressbook
+     * Execute sort command in the unsortedAddressbook
+     * to compare with the original sortedAddressbook
      */
     private void assertSortCommandBehavior() {
         SortCommand command = createSortCommand();
