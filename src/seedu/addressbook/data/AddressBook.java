@@ -121,6 +121,14 @@ public class AddressBook {
         return new UniqueTagList(allTags);
     }
 
+    /**
+     * Sort AddressBook according to alphabetical order.
+     */
+    public void SortAddressBook()
+    {
+        allPersons.sort();
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
