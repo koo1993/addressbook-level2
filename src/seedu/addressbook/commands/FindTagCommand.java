@@ -28,12 +28,6 @@ public class FindTagCommand extends Command {
         this.keywords = keywords;
     }
 
-    /**
-     * Returns a copy of keywords in this command.
-     */
-    public Set<String> getKeywords() {
-        return new HashSet<>(keywords);
-    }
 
     @Override
     public CommandResult execute() {

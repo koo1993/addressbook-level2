@@ -109,6 +109,27 @@
   find Dickson
   # find multiple with some keywords
   find Charlie Betsy
+  
+  
+##########################################################
+# test findtag command
+##########################################################
+
+  # should consider no keywords as invalid command format
+  findtag
+  # should only match full words in person's tag 
+  findtag bet
+  # does not match if none have keyword
+  findtag 23912039120
+  # matching should be case-Insensitive
+  findtag fRIends
+
+  # find unique tag keyword
+  findtag secretive
+  # find multiple with same tag keyword
+  findtag friends
+  # find multiple with some tag keywords
+  findtag secretive friends
 
 ##########################################################
 # test delete person command
