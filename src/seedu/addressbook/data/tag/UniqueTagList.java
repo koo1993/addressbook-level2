@@ -81,6 +81,17 @@ public class UniqueTagList implements Iterable<Tag> {
     }
 
     /**
+     * Retrieves a listing of every tag in the person.
+     */
+    public List<String> getTagInPerson() {
+        ArrayList<String> arraysOfTag = new ArrayList<>();
+        for(Tag m : internalList) {
+            arraysOfTag.add(m.tagName);
+        }
+        return arraysOfTag;
+    }
+
+    /**
      * Returns true if the list contains an equivalent Tag as the given argument.
      */
     public boolean contains(Tag toCheck) {
