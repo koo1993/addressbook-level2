@@ -36,6 +36,26 @@ public class UtilsTest {
         assertNotUnique(null, "a", "b", null);
     }
 
+    @Test
+    public void elementisAnyNull() throws Exception {
+        Integer nullObject = null;
+
+        //single object for Not null
+        assertAnyIsNotNull("this is a string object");
+        assertAnyIsNotNull(new Integer(10));
+
+        //multiple object for Not null
+        assertAnyIsNotNull("this is not null", new Integer(10), new ArrayList<Integer>());
+
+        //single object check for null
+        assertAnyIsNull((Object) null);
+        assertAnyIsNull(nullObject);
+
+        //multiple object for null
+        assertAnyIsNull(null, nullObject);
+
+    }
+
     private void assertAreUnique(Object... objects) {
         assertTrue(Utils.elementsAreUnique(Arrays.asList(objects)));
     }
@@ -44,24 +64,14 @@ public class UtilsTest {
         assertFalse(Utils.elementsAreUnique(Arrays.asList(objects)));
     }
 
-
-    @Test
-    public void utils_isAnyNull() throws Exception {
-        Integer nullObject = null;
-
-        //single object check Not null
-        assertFalse(Utils.isAnyNull("this is a string object"));
-        assertFalse(Utils.isAnyNull(new Integer(10)));
-
-        //multiple object for Not null
-        assertFalse(Utils.isAnyNull("this is not null", new Integer(10), new ArrayList<Integer>()));
-
-        //single object check for null
-        assertTrue(Utils.isAnyNull((Object) null));
-        assertTrue(Utils.isAnyNull(nullObject));
-
-        //multiple object for null
-        assertTrue(Utils.isAnyNull(null, nullObject));
-
+    private void assertAnyIsNull(Object... objects) {
+        assertTrue(Utils.isAnyNull(objects));
     }
+
+    private void assertAnyIsNotNull(Object... objects) {
+        assertFalse(Utils.isAnyNull(objects));
+    }
+
+
+
 }
